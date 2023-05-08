@@ -78,7 +78,7 @@ function showMovies(data) {
     movieEl.innerHTML = `
     <a 
     class='movie-preview-link'
-    onclick="getVideo(${movie.filmId})"
+       href="bio/${movie.filmId}"
      target="_blank"
      title="${movie.filmId}"
      >

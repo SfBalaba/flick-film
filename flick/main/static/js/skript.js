@@ -71,15 +71,16 @@ function showMovies(data) {
   document.querySelector(".movies").innerHTML = "";
 
   data.films.forEach((movie) => {
-    const movieEl = document.createElement("div");
+      const movieEl = document.createElement("div");
     const PREW_MOVIE = API_URL_OMDB_SEARCH + movie.nameEn; //--
 
     movieEl.classList.add("movie");
     movieEl.innerHTML = `
     <a 
     class='movie-preview-link'
-    onclick="getVideo(${movie.filmId})"
+ 
      target="_blank"
+     href="bio/${movie.filmId}"
      title="${movie.filmId}"
      >
     <div class="movie__cover-inner">

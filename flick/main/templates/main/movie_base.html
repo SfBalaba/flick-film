@@ -4,24 +4,126 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="../../static/css/style_movie.css" />
+    <link rel="stylesheet" href="../../static/css/style_movie.css"/>
 
     <title>Document</title>
 </head>
 {% csrf_token %}
 <body>
-    <iframe class="movie-previw-video" src="https://www.youtube.com/embed/UUw8i7k1mwc?autoplay=1&mute=1" 
-      title="myFrame"
-      width="782px"
-      height="440px"> 
-      frame body </iframe>
+<div class="movie">
+    {#    <iframe class="movie-previw-video" src="https://www.youtube.com/embed/UUw8i7k1mwc?autoplay=1&mute=1" #}
+    {#      title="myFrame"#}
+    {#      width="782px"#}
+    {#      height="440px"> #}
+    {#      frame body </iframe>#}
     <h1 class="movie-title"></h1>
-    <img class="movie-poster" src="">
+    <img class="movie-poster" src="{{ posterPreviewUrl }}">
     <p class="movie-discription"></p>
     <div class="corousel">
-        <div class="movies"> 
-            <h1>{{  obj }}</h1>
+        <div class="movies">
+            <h1>{{ name }}</h1>
+            {#            <p>{{ response }}</p>#}
+            {% if  trailerUrl != "" %}
+                <iframe class="movie-previw-video" src="{{ trailerUrl }}?autoplay=1&mute=1"
+                        title="myFrame"
+                        width="782px"
+                        height="440px">
+                    frame body
+                </iframe>
+            {% endif %}
+            <p>{{ id }}</p>
+            <p>{{ description }}</p>
+            <table>
+
+                <tr>
+                    <td>Жанр:</td>
+                    <td>
+                        {% for g in genres %}
+                            {{ g.name }} ,
+                        {% endfor %}
+                    </td>
+
+                </tr>
+
+                <tr>
+                    <td>Актёры:</td>
+                    <td>
+                        {% for p in persons %}
+                            {% if p.profession == 'актеры' %}
+                                {{ p.name }},
+                            {% endif %}
+                        {% endfor %}
+                    </td>
+                </tr>
+                <tr>
+                    <td>Композиторы:</td>
+                    <td>
+                        {% for p in persons %}
+                            {% if p.profession == 'композиторы' %}
+                                {{ p.name }},
+                            {% endif %}
+                        {% endfor %}
+                    </td>
+                </tr>
+                </tr>
+
+                <tr>
+                    <td>Режиссер:</td>
+                    <td>
+                        {% for p in persons %}
+                            {% if p.profession == 'режиссеры' %}
+                                {{ p.name }},
+                            {% endif %}
+                        {% endfor %}
+                    </td>
+                </tr>
+
+                <tr>
+                    <td>Монтажеры:</td>
+                    <td>
+                        {% for p in persons %}
+                            {% if p.profession == 'монтажеры' %}
+                                {{ p.name }},
+                            {% endif %}
+                        {% endfor %}
+                    </td>
+                </tr>
+
+                <tr>
+                    <td>Операторы:</td>
+                    <td>
+                        {% for p in persons %}
+                            {% if p.profession == 'операторы' %}
+                                {{ p.name }},
+                            {% endif %}
+                        {% endfor %}
+                    </td>
+                </tr>
+
+                <tr>
+                    <td>Продюсеры:</td>
+                    <td>
+                        {% for p in persons %}
+                            {% if p.profession == 'продюсеры' %}
+                                {{ p.name }},
+                            {% endif %}
+                        {% endfor %}
+                    </td>
+                </tr>
+                          <tr>
+                    <td>Сценарий:</td>
+                    <td>
+                        {% for p in persons %}
+                            {% if p.profession == 'редакторы' %}
+                                {{ p.name }},
+                            {% endif %}
+                        {% endfor %}
+                    </td>
+                </tr>
+
+            </table>
         </div>
     </div>
+</div>
 </body>
 </html>
