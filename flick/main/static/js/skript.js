@@ -10,14 +10,14 @@ const API_KEY_OMDB = '6e33deaa'
 const API_URL_OMDB_SEARCH = 'http://www.omdbapi.com/?apikey=6e33dea&plot=full&t='
 // tt3896198
 
-getMovies(API_URL_POPULAR);
+getMovies(API_URL_POPULAR); 
 
-console.log(1);
+
 
 async function getMovies(url) {
   const resp = await fetch(url, {
     headers: {
-      "Content-Type": "utf-8",
+      "Content-Type": "application/json",
       "X-API-KEY": API_KEY,
     },
   });
@@ -71,16 +71,15 @@ function showMovies(data) {
   document.querySelector(".movies").innerHTML = "";
 
   data.films.forEach((movie) => {
-      const movieEl = document.createElement("div");
+    const movieEl = document.createElement("div");
     const PREW_MOVIE = API_URL_OMDB_SEARCH + movie.nameEn; //--
 
     movieEl.classList.add("movie");
     movieEl.innerHTML = `
     <a 
     class='movie-preview-link'
- 
+       href="bio/${movie.filmId}"
      target="_blank"
-     href="bio/${movie.filmId}"
      title="${movie.filmId}"
      >
     <div class="movie__cover-inner">
