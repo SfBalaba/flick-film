@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../../static/css/style_movie.css" />
+
+    <title>Document</title>
+</head>
+{% csrf_token %}
+<body>
+    <iframe class="movie-previw-video" src="https://www.youtube.com/embed/UUw8i7k1mwc?autoplay=1&mute=1" 
+      title="myFrame"
+      width="782px"
+      height="440px"> 
+      frame body </iframe>
+    <h1 class="movie-title"></h1>
+    <img class="movie-poster" src="">
+    <p class="movie-discription"></p>
+    <div class="corousel">
+        <div class="movies"> 
+            <h1>{{  obj }}</h1>
+        </div>
+    </div>
+</body>
+</html>
