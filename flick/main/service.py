@@ -7,4 +7,3 @@ def get_trailers1(data):
         else:
             return data['videos']['trailers']['url']
     return ""
-

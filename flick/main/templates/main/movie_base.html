@@ -17,13 +17,13 @@
     <div class="corousel">
         <div class="movies">
             <h1>{{ name }}</h1>
-            {% if  trailerUrl != "" %}
-                <iframe class="movie-previw-video" src="{{ trailerUrl }}?autoplay=1&mute=1"
-                        title="myFrame"
-                        width="782px"
-                        height="440px">
-                    frame body
-                </iframe>
+            {% if trailerUrl != "" %}
+            <iframe class="movie-previw-video" src="{{ trailerUrl }}?autoplay=1&mute=1"
+                    title="myFrame"
+                    width="782px"
+                    height="440px">
+                frame body
+            </iframe>
             {% endif %}
             <p>{{ id }}</p>
             <p>{{ description }}</p>
@@ -33,7 +33,7 @@
                     <td>Жанр:</td>
                     <td>
                         {% for g in genres %}
-                            {{ g.name }} ,
+                        {{ g.name }} ,
                         {% endfor %}
                     </td>
 
@@ -43,9 +43,9 @@
                     <td>Актёры:</td>
                     <td>
                         {% for p in persons %}
-                            {% if p.profession == 'актеры' %}
-                                {{ p.name }},
-                            {% endif %}
+                        {% if p.profession == 'актеры' %}
+                        {{ p.name }},
+                        {% endif %}
                         {% endfor %}
                     </td>
                 </tr>
@@ -53,9 +53,9 @@
                     <td>Композиторы:</td>
                     <td>
                         {% for p in persons %}
-                            {% if p.profession == 'композиторы' %}
-                                {{ p.name }},
-                            {% endif %}
+                        {% if p.profession == 'композиторы' %}
+                        {{ p.name }},
+                        {% endif %}
                         {% endfor %}
                     </td>
                 </tr>
@@ -65,9 +65,9 @@
                     <td>Режиссер:</td>
                     <td>
                         {% for p in persons %}
-                            {% if p.profession == 'режиссеры' %}
-                                {{ p.name }},
-                            {% endif %}
+                        {% if p.profession == 'режиссеры' %}
+                        {{ p.name }},
+                        {% endif %}
                         {% endfor %}
                     </td>
                 </tr>
@@ -76,9 +76,9 @@
                     <td>Монтажеры:</td>
                     <td>
                         {% for p in persons %}
-                            {% if p.profession == 'монтажеры' %}
-                                {{ p.name }},
-                            {% endif %}
+                        {% if p.profession == 'монтажеры' %}
+                        {{ p.name }},
+                        {% endif %}
                         {% endfor %}
                     </td>
                 </tr>
@@ -87,9 +87,9 @@
                     <td>Операторы:</td>
                     <td>
                         {% for p in persons %}
-                            {% if p.profession == 'операторы' %}
-                                {{ p.name }},
-                            {% endif %}
+                        {% if p.profession == 'операторы' %}
+                        {{ p.name }},
+                        {% endif %}
                         {% endfor %}
                     </td>
                 </tr>
@@ -98,23 +98,38 @@
                     <td>Продюсеры:</td>
                     <td>
                         {% for p in persons %}
-                            {% if p.profession == 'продюсеры' %}
-                                {{ p.name }},
-                            {% endif %}
+                        {% if p.profession == 'продюсеры' %}
+                        {{ p.name }},
+                        {% endif %}
                         {% endfor %}
                     </td>
                 </tr>
-                          <tr>
+                <tr>
                     <td>Сценарий:</td>
                     <td>
                         {% for p in persons %}
-                            {% if p.profession == 'редакторы' %}
-                                {{ p.name }},
-                            {% endif %}
+                        {% if p.profession == 'редакторы' %}
+                        {{ p.name }},
+                        {% endif %}
                         {% endfor %}
                     </td>
                 </tr>
             </table>
+            {% if sequelsAndPrequels|length > 0 %}
+            <h3>Сиквелы и приквелы</h3>
+            <div style="display: flex; gap: 30px;">
+                {% for sp in sequelsAndPrequels %}
+                <a style="text-decoration: none; size: 15px; color: black" href="{{ sp.id }}">
+                    <div>
+                        <img width="150px" height="225px" src="{{ sp.poster.previewUrl }}">
+                        <p>{{ sp.name }}</p>
+                    </div>
+                </a>
+
+                {% endfor %}
+                {% endif %}
+            </div>
+
         </div>
     </div>
 </div>

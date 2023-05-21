@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Подборка</title>
+
+</head>
+<style>
+        .item{
+            margin: 0 70px;
+            padding-bottom: 30px;
+
+        }
+        a{
+            text-decoration: none;
+        }
+        ul {
+  list-style-position: inside;
+  -moz-column-count: 2; /* Firefox */
+  -webkit-column-count: 2; /* Safari and Chrome */
+  column-count: 5;
+  /*list-style-type: decimal;*/
+            list-style: none;
+  height: 300px;
+}
+        </style>
+<body>
+<div class="corousel" style="display: flex; gap: 100px" ><!--создать &ndash;&gt;-->
+    <h1><a href="">Фильмы</a></h1>
+    <h1><a href="">Сериалы</a></h1>
+    <h1><a href="">Мультфильмы</a></h1>
+</div>
+<h2>Жанры</h2>
+{% csrf_token %}
+<ul class="wrap">
+{% for i in genres %}
+<li>
+<p class="item"><a href="genres/{{i.name}}">{{i.name}}</a></p>
+</li>
+{% endfor %}
+</ul>
+</div>
+<h3></h3>
+<h3></h3>
+
+</body>
+</html>

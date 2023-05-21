@@ -9,4 +9,6 @@ from . import views
 urlpatterns = [
     path("", views.index, name='index'),
     path("bio/<int:id>", views.bio, name="bio"),
+    path("genres/<str:genre_name>", views.genres, name="genres"),
+    path('compilation', views.compilation, name='compilation'),
 ]

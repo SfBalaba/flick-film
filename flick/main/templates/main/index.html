@@ -1,7 +1,8 @@
 {% load static %}
 <!DOCTYPE html>
-<html lang="ru">
+<html lang="ru" xmlns="http://www.w3.org/1999/html">
   <head>
+
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="stylesheet" href="{%  static "/css/style.css" %}" />
@@ -14,11 +15,13 @@
       <link rel="icon"  href="{%  static "img/favicon.png" %}" type="image/x-icon">
     <title>Flick</title>
   </head>
-  <body>
+  <body style="background-color:  #1a191f">
 
     <header class="container">
+
       <div class="header__content">
-        <a href="bio" class="header__logo">Flick-films</a>
+        <a href="main" class="header__logo">Flick-films</a>
+        <a href="compilation" class="header__logo">Каталог</a>
         <form>
           <input type="text" class="header__search" placeholder="Поиск" />
         </form>
