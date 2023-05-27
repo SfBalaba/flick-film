@@ -21,5 +21,9 @@ from main import views
 
 urlpatterns = [
     path("admin/", admin.site.urls),
-    path("main/", include("main.urls"))
+    path("main/", include("main.urls")),
+    path("", views.index, name='index'),
+    path("bio/<int:id>", views.bio, name="bio"),
+    path("genres/<str:genre_name>", views.genres, name="genres"),
+    path('compilation', views.compilation, name='compilation'),
 ]

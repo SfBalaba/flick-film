@@ -23,7 +23,8 @@ async function getMovies(url) {
   });
   const respData = await resp.json();
   showMovies(respData);
-  console.log(respData);
+  console.log(respData.films);
+  console.log(respData.films[0])
 }
 
 
@@ -79,21 +80,21 @@ function showMovies(data) {
     <a 
     class='movie-preview-link'
        href="bio/${movie.filmId}"
-     target="_blank"
+     target="_self"
      title="${movie.filmId}"
      >
     <div class="movie__cover-inner">
     <img
           src="${movie.posterUrlPreview}"
           class="movie__cover"
-          alt="${movie.nameRu}"
+          alt="${getName(movie)}"
         />
       
         <div class="movie__cover--darkened"></div>
       </div>
      
       <div class="movie__info">
-        <div class="movie__title">${movie.nameRu}</div>
+        <div class="movie__title">${getName(movie)}</div>
         <div class="movie__category">${movie.genres.map(
           (genre) => ` ${genre.genre}`
         )}</div>
@@ -132,4 +133,10 @@ function getVideo(id) {
     const url = API_VIDEO_UNOFFICIAL_KP + id + "/videos"
     getFacts(url);
     console.log(url);
+}
+
+function getName(movie) {
+  if (typeof movie.nameRu === 'undefined') {
+    return movie.nameEn
+  } else return movie.nameRu
 }
