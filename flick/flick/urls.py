@@ -26,4 +26,7 @@ urlpatterns = [
     path("bio/<int:id>", views.bio, name="bio"),
     path("genres/<str:genre_name>", views.genres, name="genres"),
     path('compilation', views.compilation, name='compilation'),
+    path('registration', views.registration, name='registration'),
+    path('login/', views.my_login, name='login'),
+    path('logout/', views.my_logout, name='logout'),
 ]

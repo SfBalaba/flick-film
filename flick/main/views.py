@@ -1,22 +1,59 @@
 import sys
+from typing import Any, Dict
 from django.shortcuts import render, redirect
 import requests
 from main.service import get_trailers1
+from django import template
+from django.http import QueryDict
+from django.template import Library
+import re
+from django.contrib.auth import authenticate, login, logout
+from django.contrib.auth.forms import AuthenticationForm, UserCreationForm
+from django.shortcuts import render, redirect
+from .forms import SignUpForm
 
-API_KEY = "YJKWE1C-8WSMSY3-PB0XDGX-2JN8N8N"
-#API_KEY = '61556GR-YSY47YS-JBK7JE0-M9FJ4EA'
+
+#API_KEY = "YJKWE1C-8WSMSY3-PB0XDGX-2JN8N8N"
+API_KEY = '61556GR-YSY47YS-JBK7JE0-M9FJ4EA'
 
 headers = {
     'Content-Type': "application/json",
     "X-API-KEY": API_KEY,
 }
 
-
 def index(request):
     context = {
     }
     return render(request, 'main/index.html')
 
+def registration(request):
+    form = SignUpForm(request.POST or None)
+    if form.is_valid():
+        user_obj = form.save()
+        return redirect('login')
+    context = {"form": form}
+    return render(request, 'main/registration.html', context)
+
+
+def my_login(request):
+    if request.method == "POST":
+        form = AuthenticationForm(request, data=request.POST)
+        if form.is_valid():
+            user = form.get_user()
+            login(request, user)
+            return redirect('index')
+    else:
+        form = AuthenticationForm(request)
+    context = {
+        "form": form
+    }
+    return render(request, "main/login.html", context)
+
+def my_logout(request):
+    if request.method == "POST":
+        logout(request)
+        return redirect("login")
+    return render(request, "main/logout.html", {})
 
 def compilation(request):
     global API_KEY, headers
@@ -62,6 +99,7 @@ def bio(request, id):
         'persons': persons,
         'sequelsAndPrequels': data['sequelsAndPrequels'],
     }
+    
     return render(request, 'main/movie_base.html', context)
 
 def fixNames(person):

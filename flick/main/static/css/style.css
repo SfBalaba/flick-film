@@ -18,6 +18,13 @@ body {
     overflow-x:hidden;
 }
 
+input {
+    border-radius: 12px;
+    font-family: 'Jost', sans-serif !important;
+    padding: 0 10px;
+    font-size:calc(15px + 8 * (100vw - 320px) / 880);
+}
+
 .container {
     max-width: 1200px;
     margin: 0 auto;
@@ -38,11 +45,8 @@ body {
 }
 
 .header__search {
-    padding: 8px;
-    border: 2px solid #1a191f;
-    border-radius: 5px;
-    outline: none;
-    color:black !important
+    font-size:calc(10px + 8 * (100vw - 320px) / 880);
+    width: 30vw
 }
 
 .movies {
@@ -176,4 +180,68 @@ body {
 .lil-movie:hover {
     transform: scale(1.1);
     transition: 0.2s;
+}
+
+.watch-btn {
+    background: none;
+    border: #ffffff solid 1px;
+    border-radius: 12px;
+    color: #ffffff;
+    font-family: 'Jost', sans-serif !important;
+    font-size:calc(10px + 8 * (100vw - 320px) / 880);
+    height: fit-content;
+    padding: 20px;
+}
+
+.watch-btn:hover {
+    background: #2c2c2c;
+    transition: 0.2s;
+}
+
+.header-end a {
+    font-size:calc(10px + 8 * (100vw - 320px) / 880);
+    padding: 0px 10px;
+    border-radius: 12px;
+}
+
+.header-end a:hover {
+    background-color: rgb(197, 171, 0);
+    transition: 0.2s;
+    color:black
+}
+
+.header-end {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.header-middle {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.header-middle a {
+    font-size:calc(10px + 8 * (100vw - 320px) / 880);
+    padding: 0px 10px;
+    border-radius: 12px;
+}
+
+.divider {
+    width: 1px;
+    height: 30px;
+    border: none;
+    background: white;
+}
+
+.login-link {
+    text-decoration: none;
+    color: rgb(197, 171, 0);
+    font-size:calc(12px + 8 * (100vw - 320px) / 880);
+    font-weight: bolder;
+}
+
+.login-link:hover {
+    text-decoration: underline;
 }
