@@ -66,6 +66,7 @@
             <p style="font-size:calc(15px + 8 * (100vw - 320px) / 880);">{{ description }}</p>
 
             <div style="display: flex; width: 100%; align-items: center;">
+
                 <button id="link" onclick="google()" class="watch-btn">Смотреть сейчас</button>
 
                 <button type="button" style="margin:20px auto" class="down-btn" onClick="checkIfTrailer()">
@@ -106,91 +107,81 @@
             <div class="movies">
                 <table class="movie-info-table" style="gap:20px">
 
+                    {% load widget_tweaks %}
+				    {% load profession from filter %}
+                    {% load get_prop from filter %}
                     <tr>
                         <td>Жанр:</td>
                         <td>
-                            {% for g in genres %}
-                            {{ g.name }},
-                            {% endfor %}
+                            {{ genres|get_prop:"name"|join:", " }}
                         </td>
 
                     </tr>
 
-                    <tr>
-                        <td>Актёры:</td>
-                        <td>
-                            {% for p in persons %}
-                            {% if p.profession == 'актеры' and p.name != None %}
-                            {{ p.name }},
-                            {% endif %}
-                            {% endfor %}
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>Композиторы:</td>
-                        <td>
-                            {% for p in persons %}
-                            {% if p.profession == 'композиторы' and p.name != None %}
-                            {{ p.name }},
-                            {% endif %}
-                            {% endfor %}
-                        </td>
-                    </tr>
-                    </tr>
+    
+                    {% if persons|profession:"актеры"|length > 0 %}
+                        <tr>
+                            <td>Актёры:</td>
+                            <td>
+                                {{ persons|profession:"актеры"|get_prop:"name"|join:", " }}
+                            </td>
+                        </tr>
+                    {% endif %}
+                        
 
-                    <tr>
-                        <td>Режиссер:</td>
-                        <td>
-                            {% for p in persons %}
-                            {% if p.profession == 'режиссеры' and p.name != None %}
-                            {{ p.name }},
-                            {% endif %}
-                            {% endfor %}
-                        </td>
-                    </tr>
+                    {% if persons|profession:"композиторы"|length > 0 %}
+                        <tr>
+                            <td>Композиторы:</td>
+                            <td>
+                                {{ persons|profession:"композиторы"|get_prop:"name"|join:", " }}
+                            </td>
+                        </tr>
+                    {% endif %}
 
-                    <tr>
-                        <td>Монтажеры:</td>
-                        <td>
-                            {% for p in persons %}
-                            {% if p.profession == 'монтажеры' and p.name != None %}
-                            {{ p.name }},
-                            {% endif %}
-                            {% endfor %}
-                        </td>
-                    </tr>
+                    {% if persons|profession:"режиссеры"|length > 0 %}
+                        <tr>
+                            <td>Режиссеры:</td>
+                            <td>
+                                {{ persons|profession:"режиссеры"|get_prop:"name"|join:", " }}
+                            </td>
+                        </tr>
+                    {% endif %}
 
-                    <tr>
-                        <td>Операторы:</td>
-                        <td>
-                            {% for p in persons %}
-                            {% if p.profession == 'операторы' and p.name != None %}
-                            {{ p.name }},
-                            {% endif %}
-                            {% endfor %}
-                        </td>
-                    </tr>
+                    {% if persons|profession:"монтажеры"|length > 0 %}
+                        <tr>
+                            <td>Монтажеры:</td>
+                            <td>
+                                {{ persons|profession:"монтажеры"|get_prop:"name"|join:", " }}
+                            </td>
+                        </tr>
+                    {% endif %}
 
-                    <tr>
-                        <td>Продюсеры:</td>
-                        <td>
-                            {% for p in persons %}
-                            {% if p.profession == 'продюсеры' and p.name != None %}
-                            {{ p.name }},
-                            {% endif %}
-                            {% endfor %}
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>Сценарий:</td>
-                        <td>
-                            {% for p in persons %}
-                            {% if p.profession == 'редакторы' and p.name != None %}
-                            {{ p.name }},
-                            {% endif %}
-                            {% endfor %}
-                        </td>
-                    </tr>
+                    {% if persons|profession:"операторы"|length > 0 %}
+                        <tr>
+                            <td>Операторы:</td>
+                            <td>
+                                {{ persons|profession:"операторы"|get_prop:"name"|join:", " }}
+                            </td>
+                        </tr>
+                    {% endif %}
+
+                    {% if persons|profession:"продюсеры"|length > 0 %}
+                        <tr>
+                            <td>Продюсеры:</td>
+                            <td>
+                                {{ persons|profession:"продюсеры"|get_prop:"name"|join:", " }}
+                            </td>
+                        </tr>
+                    {% endif %}
+
+                    {% if persons|profession:"редакторы"|length > 0 %}
+                        <tr>
+                            <td>Сценарий:</td>
+                            <td>
+                                {{ persons|profession:"редакторы"|get_prop:"name"|join:", " }}
+                            </td>
+                        </tr>
+                    {% endif %}
                 </table>
                 {% if sequelsAndPrequels|length > 0 %}
                 <p style="width: 100%; text-align: left; font-weight: 700; font-size:calc(15px + 8 * (100vw - 320px) / 880);">Сиквелы и приквелы</p>

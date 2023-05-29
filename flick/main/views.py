@@ -2,6 +2,7 @@ import sys
 from typing import Any, Dict
 from django.shortcuts import render, redirect
 import requests
+from django.contrib.auth.models import User
 from main.service import get_trailers1
 from django import template
 from django.http import QueryDict
@@ -10,8 +11,6 @@ import re
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.forms import AuthenticationForm, UserCreationForm
 from django.shortcuts import render, redirect
-from .forms import SignUpForm
-
 
 #API_KEY = "YJKWE1C-8WSMSY3-PB0XDGX-2JN8N8N"
 API_KEY = '61556GR-YSY47YS-JBK7JE0-M9FJ4EA'
@@ -22,12 +21,17 @@ headers = {
 }
 
 def index(request):
-    context = {
-    }
+    current_user = request.user
+    context = {'user':current_user}
     return render(request, 'main/index.html')
 
+def profile(request):
+    current_user = request.user
+    context = {'user':current_user}
+    return render(request, 'main/profile.html')
+
 def registration(request):
-    form = SignUpForm(request.POST or None)
+    form = UserCreationForm(request.POST or None)
     if form.is_valid():
         user_obj = form.save()
         return redirect('login')
