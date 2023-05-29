@@ -80,8 +80,18 @@ WSGI_APPLICATION = "flick.wsgi.application"
 DATABASES = {
     "default": {
         "ENGINE": "django.db.backends.sqlite3",
-        'NAME': str(os.path.join(BASE_DIR, "db.sqlite3"))
-    }
+        'NAME': str(os.path.join(BASE_DIR, "db.sqlite3")),
+    },
+        # "default": {
+        #     "ENGINE": "django.db.backends.sqlite3",
+        #     'NAME': str(os.path.join(BASE_DIR, "movie.db")),
+        # 'ENGINE': 'django.db.backends.postgresql',
+        # 'NAME': 'railway',
+        # 'USER': 'postgres',
+        # 'PASSWORD': 'RmMshWf7pxU8XaAme0Ei',
+        # 'HOST': 'containers-us-west-7.railway.app',
+        # 'PORT': '5995',
+
 }
 
 

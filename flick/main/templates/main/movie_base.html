@@ -196,7 +196,24 @@
 
                     {% endfor %}
                     {% endif %}
+
                 </div>
+{#                <p>{{ response.name }}</p>#}
+                <p style="width: 100%; text-align: left; font-weight: 700; font-size:calc(15px + 8 * (100vw - 320px) / 880);">Рекомендуем вам</p>
+                <p>{{recom_movie_list}}/p>
+            {% if lst_recom|length > 0 %}
+                {% for recomm in lst_recom %}
+                    <div style="width:100%; display: flex; gap: 30px; margin: 20px; flex-wrap: wrap; align-items: flex-start;">
+{#                        {% for recomm in lst_recom %}#}
+                        <a style="text-decoration: none; size: 15px; color: black" href="{{ recomm.id }}">
+                            <div style="width:150px">
+                                <img width="150px" height="225px" src="{{ recomm.poster.previewUrl  }}">
+                                <div>{{ recomm.name }}</div>
+                            </div>
+                        </a>
+
+                        {% endfor %}
+                    {% endif %}
 
             </div>
     </div>
