@@ -140,3 +140,5 @@ function getName(movie) {
     return movie.nameEn
   } else return movie.nameRu
 }
+
+

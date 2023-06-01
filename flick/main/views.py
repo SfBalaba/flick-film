@@ -1,3 +1,5 @@
+import json
+import os.path
 import sys
 from typing import Any, Dict
 from django.shortcuts import render, redirect
@@ -5,6 +7,7 @@ import requests
 from django.contrib.auth.models import User
 from main.service import get_trailers1
 from django import template
+import numpy as np
 from django.http import QueryDict
 from django.template import Library
 import re
@@ -12,7 +15,9 @@ from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.forms import AuthenticationForm, UserCreationForm
 from django.shortcuts import render, redirect
 
-#API_KEY = "YJKWE1C-8WSMSY3-PB0XDGX-2JN8N8N"
+from flick.settings import BASE_DIR
+
+API_KEY = "YJKWE1C-8WSMSY3-PB0XDGX-2JN8N8N"
 API_KEY = '61556GR-YSY47YS-JBK7JE0-M9FJ4EA'
 
 headers = {
@@ -59,14 +64,16 @@ def my_logout(request):
         return redirect("login")
     return render(request, "main/logout.html", {})
 
+
 def compilation(request):
-    global API_KEY, headers
-    URL = 'https://api.kinopoisk.dev/v1/movie/possible-values-by-field?field=genres.name'
-    response = requests.get(URL, headers=headers)
-    data = response.json()
+    # global API_KEY, headers
+    # URL = 'https://api.kinopoisk.dev/v1/movie/possible-values-by-field?field=genres.name'
+    # response = requests.get(URL, headers=headers)
+    # data = response.json()
     context = {
-        'genres': data,
+        'genres': all_genres,
     }
+    # print(data)
     return render(request, 'main/compilation.html', context=context)
 
 
@@ -110,3 +117,17 @@ def fixNames(person):
     if person["name"] is None:
         person["name"] = person["enName"]
     return person
+
+def read_json(file_name: str) -> dict:
+    path = os.path.join(BASE_DIR, 'json', file_name)
+    with open(path, encoding='utf-8') as file:
+        all_values = json.load(file)
+    return all_values
+
+def filter(request):
+    context = {
+        "genres": read_json('all_genres.json'),
+        "years": [i for i in range(2023, 1890, -1)],
+        "countries": read_json('all_countries.json')
+    }
+    return render(request, "main/filter.html", context=context)

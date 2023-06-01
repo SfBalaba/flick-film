@@ -11,4 +11,5 @@ urlpatterns = [
     path("bio/<int:id>", views.bio, name="bio"),
     path("genres/<str:genre_name>", views.genres, name="genres"),
     path('compilation', views.compilation, name='compilation'),
+    path('filters', views.filter, name="filter"),
 ]
