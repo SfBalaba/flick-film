@@ -117,7 +117,6 @@ def genres(request, genre_name):
     response = requests.get(URL, headers=headers)
     data = response.json()
     context = {
-        # 'list': data.docs,
         'list': data,
         'genre': genre_name,
         'description': 'хз какое описание :/ мб базу надо будет создать отдельно. Пока так.',
@@ -169,12 +168,10 @@ def fixNames(person):
 
 
 def filter(request):
-    # db = GenomeScores.objects.filter(movieid=2).all()
     context = {
         "genres": read_json('all_genres.json'),
         "years": [i for i in range(2023, 1890, -1)],
         "countries": read_json('all_countries.json'),
-        # 'genome': db[0].relevance
     }
     return render(request, "main/filter.html", context=context)
 
