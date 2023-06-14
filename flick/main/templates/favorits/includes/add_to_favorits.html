@@ -1,0 +1,5 @@
+<form action='{% url 'add' id=id %}' method="post">
+    {% csrf_token %}
+                        <input type="hidden" name="url_from" value="{{ request.path }}">
+                        <button style="margin-left: 10px" class="watch-btn" type="submit">В избранное</button>
+                    </form>

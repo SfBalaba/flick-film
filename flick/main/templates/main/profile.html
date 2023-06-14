@@ -1,0 +1,93 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://fonts.googleapis.com/css2?family=Jost:wght@200;300;600&family=Raleway:wght@300;400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../../static/css/style.css"/>
+
+    <title>{{name}}</title>
+
+    <script>
+        $(document).ready(function(){
+            $(window).scrollTop(0);
+        });
+        
+        function checkIfTrailer() {
+            if (document.getElementById('middle') != null) {
+                document.getElementById('middle').scrollIntoView()
+            } else {
+                document.getElementById('bottom').scrollIntoView()
+            }
+        }
+
+        function change(user) {
+            console.log(user)
+        }
+
+        function google() {
+            line = document.getElementById('movie-name').textContent + ' смотреть онлайн'
+            var url = 'https://www.google.com/search?q=' + encodeURIComponent(line);
+            window.open(url, '_blank').focus();
+        }
+    </script>
+</head>
+{% csrf_token %}
+<body>
+<header class="container" style="margin:0;">
+
+        <div class="header__content">
+          <div style="position: absolute; left: 0; top: 0; width:100%;">
+            <div style="display:flex; width: 100vw; justify-content:space-between; padding: 10px 40px; align-items: center;">
+                <div class="header-middle">
+                    <a href="/" style="font-weight:700; font-size:calc(30px + 8 * (100vw - 320px) / 880);
+                    color: white; text-decoration: none;">Flick</a>
+                    <div class="divider"></div>
+                    <a href="/compilation" class="header__logo">каталог</a>
+                </div>
+
+                <form>
+                    <input type="text" class="header__search" placeholder="Поиск" />
+                </form>
+
+                <div class="header-end">
+                    <a href="/registration" class="header__logo">регистрация</a>
+                    <div class="divider"></div>
+                    <a href="/login" class="header__logo">вход</a>
+                </div>
+            </div>
+        </div>
+        </div>
+      </header>
+
+                <div style="display: flex; flex-direction: column; justify-content:space-between; width: 80vw; margin: auto;">
+                <p style="font-weight:700; font-size:calc(30px + 8 * (100vw - 320px) / 880)">{{ user }}</p>
+
+{#    <form action='{% url "delete" %}' method="post">#}
+{#            {% csrf_token %}#}
+{#                            <input type="hidden" name="url_from" value="{{ request.path }}">#}
+{#                            <button type="submit">Delete favorits from list</button>#}
+
+                    {% if other.docs|length > 0 %}
+                <p style="width: 100%; text-align: left; font-weight: 700; font-size:calc(15px + 8 * (100vw - 320px) / 880);">Избранное</p>
+                <div style="width:100%; display: flex; gap: 30px; margin: 20px; flex-wrap: wrap; align-items: flex-start;">
+                    {% for m in other.docs %}
+                        <a style="text-decoration: none; size: 15px; color: black" href="{{ m.id }}">
+                            <div style="width:150px">
+                                <img width="150px" height="225px" src="{{ m.poster.previewUrl }}">
+                                <div style="color:white;">{{ m.name }}</div>
+                            </div>
+                        </a>
+
+                    {% endfor %}
+                    {% endif %}
+                </div>
+
+{#                    <div> {{ request.session.favorites }}</div>#}
+                    </div>
+
+</body>
+{#                        </form>#}
+</html>

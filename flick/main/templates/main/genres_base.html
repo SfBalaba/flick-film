@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+{% load static %}
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="{%  static '/css/style.css' %}" />
+    <link href="https://fonts.googleapis.com/css2?family=Jost:wght@200;300;600&family=Raleway:wght@300;400;600&display=swap" rel="stylesheet">
+
+    <title>{{genre|capfirst}}</title>
+</head>
+<body>
+
+    <header class="container" style="margin:0;">
+
+        <div class="header__content">
+          <div style="position: absolute; left: 0; top: 0; width:100%;">
+            <div style="display:flex; width: 100vw; justify-content:space-between; padding: 10px 40px; align-items: center;">
+                <div class="header-middle">
+                    <a href="/" style="font-weight:700; font-size:calc(30px + 8 * (100vw - 320px) / 880);
+                    color: white; text-decoration: none;">Flick</a>
+                    <div class="divider"></div>
+                    <a href="/compilation" class="header__logo">каталог</a>
+                </div>
+
+                <form>
+                    <input type="text" class="header__search" placeholder="Поиск" />
+                </form>
+
+                <div class="header-end">
+                    <a href="/registration" class="header__logo">регистрация</a>
+                    <div class="divider"></div>
+                    <a href="/login" class="header__logo">вход</a>
+                </div>
+            </div>
+        </div>
+        </div>
+      </header>
+      <br>
+{% csrf_token %}
+<div class="container">
+<h2 style="color: white; font-size:calc(20px + 8 * (100vw - 320px) / 880);">{{genre|capfirst}}</h2>
+<p style="color: white; font-size:calc(10px + 8 * (100vw - 320px) / 880);">{{ description }}</p>
+<br>
+
+    <div class="movies" >
+{% for movie in list.docs %}
+
+    <div class="movie">
+        <a class="movie-preview-link" href="http://127.0.0.1:8000/main/bio/{{movie.id}}" title="{{movie.id}}">
+            <div class="movie__cover-inner">
+                <img style="border-radius: 12px;" src="{{movie.poster.previewUrl}}" class="movie__cover" alt="{{movie.name}}">
+
+                <div class="movie__cover--darkened"></div>
+            </div>
+
+            <div class="movie__info">
+                <div class="movie__title">{{movie.name}}</div>
+                <div class="movie__category">{{genre}}</div>
+
+                <div class="movie__average movie__average--green">{{movie.rating.imdb}}</div>
+
+            </div>
+        </a>
+    </div>
+<!--    <a-->
+<!--    class='movie-preview-link'-->
+<!--       href="http://127.0.0.1:8000/main/bio/{{movie.id}}"-->
+<!--     target="_blank"-->
+<!--     title="{{movie.id}}"-->
+<!--     >-->
+
+<!--    <div class="movie__cover-inner">-->
+<!--        <div class="movie__average " style="position: relative;">{{movie.rating.kp}}</div>-->
+<!--    <img-->
+<!--          src="{{movie.poster.previewUrl}}"-->
+<!--          class="movie__cover"-->
+<!--          alt="{{movie.name}}"-->
+<!--        />-->
+
+<!--        <div class="movie__cover&#45;&#45;darkened"></div>-->
+<!--      </div>-->
+
+<!--      <div class="movie__info">-->
+<!--        <div class="movie__title">{{movie.name}}</div>-->
+<!--        <div class="movie__category">-->
+<!--            {{genre}}-->
+<!--        </div>-->
+<!--          <div class="movie__average movie__average&#45;&#45;red">{{movie.rating.imdb}}</div>-->
+<!--&lt;!&ndash;          {{movie.rating.imdb }}&ndash;&gt;-->
+<!--      </div>-->
+<!--      </a>-->
+<!--    </div>-->
+{% endfor %}
+      </div>
+</div>
+
+</body>
+</html>

@@ -1,0 +1,45 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <script src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
+    <title>Filter</title>
+    <script defer src="{%  static '/js/filter.js' %}"></script>
+           <link rel="stylesheet" href="{%  static '/css/style.css' %}" />
+</head>
+<body>
+{% csrf_token %}
+
+<select class="form-select-genre" multiple aria-label="пример множественного выбора">
+{% for genre in genres %}
+    <option value="{{ genre.name }}">{{ genre.name }}</option>
+    {% endfor %}
+</select>
+
+<form class="form-year">
+    <p>from:</p>
+<select class="form-select-country from" name="from" aria-label="Default select example">
+    {% for i in years %}
+  <option value="{{ i }}">{{ i }}</option>
+{% endfor %}
+</select>
+    <p>to:</p>
+<select class="form-select-country to" name="to">
+    {% for i in years %}
+  <option value="{{ i }}">{{ i }}</option>
+{% endfor %}
+</select>
+<p>Страна</p>
+<select class="country" name="country" multiple>
+        {% for country in countries %}
+  <option value="{{ country.name }}">{{ country.name }}</option>
+{% endfor %}
+</select>
+</form>
+<button type="submit" id="but">Поиск</button>
+
+<div class="movies"></div>
+
+</body>
+</html>

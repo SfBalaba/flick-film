@@ -1,0 +1,30 @@
+
+<form action='{% url "remove" id=id %}' method="post">
+                   {% csrf_token %}
+                        <input type="hidden" name="url_from" value="{{ request.path }}">
+                        <button style="margin-left: 10px" class="watch-btn" type="submit">удалить из избранного</button>
+                    </form>{#{% if request.session.favorites %}#}
+{#<p>hello</p>#}
+{#    {% if type(id) is mapper %}#}
+{#        <p>dict</p>#}
+{#        {% endif %}#}
+{#  {{ id  }}#}
+{##}
+{#    {% for item in request.session.favorites %}#}
+{#        {% if type(item.id) is int %}#}
+{#        print 'item.id int'#}
+{#        {% endif %}#}
+{#        {{ item.id  }}#}
+{#        {% if item.id == id %}#}
+{##}
+{#                    <form action='{% url "remove" id=id %}' method="post">#}
+{#                   {% csrf_token %}#}
+{#                        <input type="hidden" name="url_from" value="{{ request.path }}">#}
+{#                        <button type="submit">remove from favorites</button>#}
+{#                    </form>#}
+{#        {% endif %}#}
+{##}
+{##}
+{#{% endif %}#}
+{#    {% endfor %}#}
+{#{% endif %}#}
