@@ -1,0 +1,247 @@
+html {
+    scroll-behavior: smooth;
+    overflow-x:hidden;
+    max-width: 100%;
+    font-family: 'Jost', sans-serif !important;
+    color: white !important;
+}
+
+* {
+    margin: 0px;
+    padding: 0px;
+    box-sizing: border-box;
+}
+
+body {
+    background-color: #010100;
+    max-width: 100%;
+    overflow-x:hidden;
+}
+
+input {
+    border-radius: 12px;
+    font-family: 'Jost', sans-serif !important;
+    padding: 0 10px;
+    font-size:calc(15px + 8 * (100vw - 320px) / 880);
+}
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.header__content {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 16px;
+    height: 60px;
+}
+
+.header__logo {
+    font-size: 32px;
+    text-decoration: none;
+    color: #ffffff;
+}
+
+.header__search {
+    font-size:calc(10px + 8 * (100vw - 320px) / 880);
+    width: 30vw
+}
+
+.movies {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+}
+
+.movie {
+    width: 240px;
+    margin: 10px;
+    position: relative;
+}
+
+.movie__cover-inner {
+    position: relative;
+    height: 360px;
+}
+
+.movie__cover {
+    max-width: 100%;
+    height: 100%;
+}
+
+.movie__cover--darkened {
+    background-color: #000000;
+    opacity: 0.1;
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    max-width: 100%;
+    height: 100%;
+    z-index: 1;
+}
+
+.movie__cover--darkened:hover {
+    background-color: grey;
+    cursor: pointer;
+}
+
+.movie__info {
+    padding: 10px 0px;
+}
+
+.movie__title {
+    font-size: 16px;
+    color: #ffffff;
+    font-weight:700
+}
+
+.movie__category {
+    font-size: 14px;
+    color: #ffd80e;
+}
+
+.movie__average {
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    right: 0;
+    border-radius: 50%;
+    width: 36px;
+    height: 36px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #1a191f;
+    color: #ffffff;
+    font-size: 14px;
+}
+
+.movie__average--green {
+    border: 1px solid green;
+}
+
+.movie__average--orange {
+    border: 1px solid orange;
+}
+
+.movie__average--red {
+    border: 1px solid red;
+}
+
+.movie-preview-link {
+    display: inline-block;
+    text-decoration: none;
+}
+/*
+
+
+
+
+*/
+.down-btn {
+    background: none;
+    border: #ffffff solid 1px;
+    border-radius: 50%;
+    width: 52px;
+    height: 52px;
+    padding: 0;
+    display:flex;
+    align-items: center;
+}
+
+.down-btn:hover {
+    background: #2c2c2c;
+    transition: 0.2s;
+}
+
+.movie-card-poster {
+    border-radius: 12px;
+    -webkit-box-shadow: 0px 0px 10px 9px rgba(255, 255, 255, 0.12);
+    -moz-box-shadow: 0px 0px 10px 9px rgba(255, 255, 255, 0.12);
+    box-shadow: 0px 0px 10px 9px rgba(255, 255, 255, 0.12);
+}
+
+.movie-info-table tr td:first-child {
+    font-weight: 700;
+}
+
+.movie-info-table tr td {
+    font-size:calc(10px + 8 * (100vw - 320px) / 880);
+}
+
+.movie-info-table {
+    margin: 20px auto;
+    border-spacing: 20px;
+}
+
+.lil-movie:hover {
+    transform: scale(1.1);
+    transition: 0.2s;
+}
+
+.watch-btn {
+    background: none;
+    border: #ffffff solid 1px;
+    border-radius: 12px;
+    color: #ffffff;
+    font-family: 'Jost', sans-serif !important;
+    font-size:calc(10px + 8 * (100vw - 320px) / 880);
+    height: fit-content;
+    padding: 20px;
+}
+
+.watch-btn:hover {
+    background: #2c2c2c;
+    transition: 0.2s;
+}
+
+.header-end a {
+    font-size:calc(10px + 8 * (100vw - 320px) / 880);
+    padding: 0px 10px;
+    border-radius: 12px;
+}
+
+.header-end a:hover {
+    background-color: rgb(197, 171, 0);
+    transition: 0.2s;
+    color:black
+}
+
+.header-end {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.header-middle {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.header-middle a {
+    font-size:calc(10px + 8 * (100vw - 320px) / 880);
+    padding: 0px 10px;
+    border-radius: 12px;
+}
+
+.divider {
+    width: 1px;
+    height: 30px;
+    border: none;
+    background: white;
+}
+
+.login-link {
+    text-decoration: none;
+    color: rgb(197, 171, 0);
+    font-size:calc(12px + 8 * (100vw - 320px) / 880);
+    font-weight: bolder;
+}
+
+.login-link:hover {
+    text-decoration: underline;
+}

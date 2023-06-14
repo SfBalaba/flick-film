@@ -1,0 +1,219 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://fonts.googleapis.com/css2?family=Jost:wght@200;300;600&family=Raleway:wght@300;400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../../static/css/style.css"/>
+
+    <title>{{name}}</title>
+
+    <script>
+        $(document).ready(function(){
+            $(window).scrollTop(0);
+        });
+        
+        function checkIfTrailer() {
+            if (document.getElementById('middle') != null) {
+                document.getElementById('middle').scrollIntoView()
+            } else {
+                document.getElementById('bottom').scrollIntoView()
+            }
+        }
+
+        function google() {
+            line = document.getElementById('movie-name').textContent + ' смотреть онлайн'
+            var url = 'https://www.google.com/search?q=' + encodeURIComponent(line);
+            window.open(url, '_blank').focus();
+        }
+    </script>
+</head>
+{% csrf_token %}
+<body>
+    <header class="container" style="margin:0;">
+
+        <div class="header__content">
+          <div style="position: absolute; left: 0; top: 0; width:100%;">
+            <div style="display:flex; width: 100vw; justify-content:space-between; padding: 10px 40px; align-items: center;">
+                <div class="header-middle">
+                    <a href="/" style="font-weight:700; font-size:calc(30px + 8 * (100vw - 320px) / 880);
+                    color: white; text-decoration: none;">Flick</a>
+                    <div class="divider"></div>
+                    <a href="/compilation" class="header__logo">каталог</a>
+                </div>
+
+                <form>
+                    <input type="text" class="header__search" placeholder="Поиск" />
+                </form>
+
+                <div class="header-end">
+                    <a href="/registration" class="header__logo">регистрация</a>
+                    <div class="divider"></div>
+                    <a href="/login" class="header__logo">вход</a>
+                </div>
+            </div>
+        </div>
+        </div>
+      </header>
+
+<div style="display: flex; flex-direction: column; justify-content:space-between; width: 80vw; margin: auto;">
+    <div style="display: flex; align-items: center; height:95vh;">
+        <img class="movie-card-poster" style="width: 360px;" src="{{ posterPreviewUrl }}">
+        <div style="display: flex;flex-direction: column; margin: 0 30px; width: max-content;">
+            <h1 id="movie-name" style="font-size:calc(40px + 8 * (100vw - 320px) / 880);">{{ name }}</h1>
+            <p style="font-size:calc(15px + 8 * (100vw - 320px) / 880);">{{ description }}</p>
+
+            <div style="display: flex; width: 100%; align-items: center;">
+
+                <button id="link" onclick="google()" class="watch-btn">Смотреть сейчас</button>
+
+                <button type="button" style="margin:20px auto" class="down-btn" onClick="checkIfTrailer()">
+                <svg style="margin: auto;" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" width="30" height="30" viewBox="0 0 256 256" xml:space="preserve">
+                    <defs>
+                    </defs>
+                    <g style="stroke: none; stroke-width: 0; stroke-dasharray: none; stroke-linecap: butt; stroke-linejoin: miter; stroke-miterlimit: 10; fill: none; fill-rule: nonzero; opacity: 1;" transform="translate(1.4065934065934016 1.4065934065934016) scale(2.81 2.81)">
+                        <path d="M 90 23.25 c 0 -0.384 -0.146 -0.768 -0.439 -1.061 c -0.586 -0.586 -1.535 -0.586 -2.121 0 L 45 64.629 L 2.561 22.189 c -0.585 -0.586 -1.536 -0.586 -2.121 0 c -0.586 0.586 -0.586 1.535 0 2.121 l 43.5 43.5 c 0.585 0.586 1.536 0.586 2.121 0 l 43.5 -43.5 C 89.854 24.018 90 23.634 90 23.25 z" style="stroke: none; stroke-width: 1; stroke-dasharray: none; stroke-linecap: butt; stroke-linejoin: miter; stroke-miterlimit: 10; fill: rgb(255, 255, 255); fill-rule: nonzero; opacity: 1;" transform=" matrix(1 0 0 1 0 0) " stroke-linecap="round"/>
+                    </g>
+                    </svg>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    {% if trailerUrl != "" %}
+    <div id="middle" style="margin:auto; width:100%; min-height: 100vh; padding: 20px 0;
+    display: flex; flex-direction: column; justify-content: space-between;">
+            <iframe style=" width: 100%; height: 80vh;" src="{{ trailerUrl }}?autoplay=1&mute=1"
+                    title="myFrame"
+                    width="782px"
+                    height="440px">
+                frame body
+            </iframe>
+            <button type="button" style="margin:auto" class="down-btn" onClick="document.getElementById('bottom').scrollIntoView();">
+                <svg style="margin: auto;" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" width="30" height="30" viewBox="0 0 256 256" xml:space="preserve">
+                    <defs>
+                    </defs>
+                    <g style="stroke: none; stroke-width: 0; stroke-dasharray: none; stroke-linecap: butt; stroke-linejoin: miter; stroke-miterlimit: 10; fill: none; fill-rule: nonzero; opacity: 1;" transform="translate(1.4065934065934016 1.4065934065934016) scale(2.81 2.81)">
+                        <path d="M 90 23.25 c 0 -0.384 -0.146 -0.768 -0.439 -1.061 c -0.586 -0.586 -1.535 -0.586 -2.121 0 L 45 64.629 L 2.561 22.189 c -0.585 -0.586 -1.536 -0.586 -2.121 0 c -0.586 0.586 -0.586 1.535 0 2.121 l 43.5 43.5 c 0.585 0.586 1.536 0.586 2.121 0 l 43.5 -43.5 C 89.854 24.018 90 23.634 90 23.25 z" style="stroke: none; stroke-width: 1; stroke-dasharray: none; stroke-linecap: butt; stroke-linejoin: miter; stroke-miterlimit: 10; fill: rgb(255, 255, 255); fill-rule: nonzero; opacity: 1;" transform=" matrix(1 0 0 1 0 0) " stroke-linecap="round"/>
+                    </g>
+                </svg>
+            </button>
+    </div>
+            {% endif %}
+
+    <div id="bottom" style="display:flex; flex-direction:column; align-items: center; justify-content: center; width:100%; min-height: 100vh;">
+            <div class="movies">
+                <table class="movie-info-table" style="gap:20px">
+
+                    {% load widget_tweaks %}
+				    {% load profession from filter %}
+                    {% load get_prop from filter %}
+                    <tr>
+                        <td>Жанр:</td>
+                        <td>
+                            {{ genres|get_prop:"name"|join:", " }}
+                        </td>
+
+                    </tr>
+
+    
+                    {% if persons|profession:"актеры"|length > 0 %}
+                        <tr>
+                            <td>Актёры:</td>
+                            <td>
+                                {{ persons|profession:"актеры"|get_prop:"name"|join:", " }}
+                            </td>
+                        </tr>
+                    {% endif %}
+                        
+
+                    {% if persons|profession:"композиторы"|length > 0 %}
+                        <tr>
+                            <td>Композиторы:</td>
+                            <td>
+                                {{ persons|profession:"композиторы"|get_prop:"name"|join:", " }}
+                            </td>
+                        </tr>
+                    {% endif %}
+
+                    {% if persons|profession:"режиссеры"|length > 0 %}
+                        <tr>
+                            <td>Режиссеры:</td>
+                            <td>
+                                {{ persons|profession:"режиссеры"|get_prop:"name"|join:", " }}
+                            </td>
+                        </tr>
+                    {% endif %}
+
+                    {% if persons|profession:"монтажеры"|length > 0 %}
+                        <tr>
+                            <td>Монтажеры:</td>
+                            <td>
+                                {{ persons|profession:"монтажеры"|get_prop:"name"|join:", " }}
+                            </td>
+                        </tr>
+                    {% endif %}
+
+                    {% if persons|profession:"операторы"|length > 0 %}
+                        <tr>
+                            <td>Операторы:</td>
+                            <td>
+                                {{ persons|profession:"операторы"|get_prop:"name"|join:", " }}
+                            </td>
+                        </tr>
+                    {% endif %}
+
+                    {% if persons|profession:"продюсеры"|length > 0 %}
+                        <tr>
+                            <td>Продюсеры:</td>
+                            <td>
+                                {{ persons|profession:"продюсеры"|get_prop:"name"|join:", " }}
+                            </td>
+                        </tr>
+                    {% endif %}
+
+                    {% if persons|profession:"редакторы"|length > 0 %}
+                        <tr>
+                            <td>Сценарий:</td>
+                            <td>
+                                {{ persons|profession:"редакторы"|get_prop:"name"|join:", " }}
+                            </td>
+                        </tr>
+                    {% endif %}
+                </table>
+                {% if sequelsAndPrequels|length > 0 %}
+                <p style="width: 100%; text-align: left; font-weight: 700; font-size:calc(15px + 8 * (100vw - 320px) / 880);">Сиквелы и приквелы</p>
+                <div style="width:100%; display: flex; gap: 30px; margin: 20px; flex-wrap: wrap; align-items: flex-start;">
+                    {% for sp in sequelsAndPrequels %}
+                    <a style="text-decoration: none; size: 15px; color: black" href="{{ sp.id }}">
+                        <div style="width:150px">
+                            <img width="150px" height="225px" src="{{ sp.poster.previewUrl }}">
+                            <div style="color:white;">{{ sp.name }}</div>
+                        </div>
+                    </a>
+
+                    {% endfor %}
+                    {% endif %}
+
+            {% if other|length > 0 %}
+                <p style="width: 100%; text-align: left; font-weight: 700; font-size:calc(15px + 8 * (100vw - 320px) / 880);">Похожие флики</p>
+                <div style="width:100%; display: flex; gap: 30px; margin: 20px; flex-wrap: wrap; align-items: flex-start;">
+                    {% for m in other.docs %}
+                    <a style="text-decoration: none; size: 15px; color: black" href="{{ m.id }}">
+                        <div style="width:150px">
+                            <img width="150px" height="225px" src="{{ m.poster.previewUrl }}">
+                            <div style="color:white;">{{ m.name }}</div>
+                        </div>
+                    </a>
+
+                    {% endfor %}
+                    {% endif %}
+                </div>
+
+            </div>
+    </div>
+</div>
+</body>
+</html>
