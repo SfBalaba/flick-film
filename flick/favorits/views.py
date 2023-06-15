@@ -26,6 +26,8 @@ def add_favorits(request, id):
 
 def remove_favorits(request, id):
     if request.method == 'POST':
+        my_list = request.session.get('favorites')
+    if my_list is not None:
         for item in request.session['favorites']:
             if item['id'] == id:
                 item.clear()

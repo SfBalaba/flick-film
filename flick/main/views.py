@@ -67,9 +67,11 @@ def index(request):
 
 def profile(request):
     current_user = request.user
-    print(request.session.get('favorites'))
-    ids = [i['id'] for i in request.session.get('favorites')]
-    print(ids)
+    my_list = request.session.get('favorites')
+    if my_list is not None:
+        ids = [i['id'] for i in request.session.get('favorites')]
+    else:
+        ids = []
     URL = 'https://api.kinopoisk.dev/v1.3/movie?page=1&limit=50&sortField=year'
     other = []
     if len(ids) > 0:
@@ -134,7 +136,7 @@ def genres(request, genre_name):
     context = {
         'list': data,
         'genre': genre_name,
-        'description': 'хз какое описание :/ мб базу надо будет создать отдельно. Пока так.',
+        'description': '',
     }
     return render(request, 'main/genres_base.html', context=context)
 
@@ -143,6 +145,20 @@ def bio(request, id):
     file_base = os.path.join(BASE_DIR, 'base.db')
     con = sqlite3.connect(file_base)
     cur = con.cursor()
+
+    my_list = request.session.get('favorites')
+    if my_list is not None:
+        ids = [i['id'] for i in request.session.get('favorites')]
+    else:
+        ids = []
+    URL = 'https://api.kinopoisk.dev/v1.3/movie?page=1&limit=50&sortField=year'
+    favs = []
+    if len(ids) > 0:
+        for i in ids:
+            # print(i)
+            URL += f'&id={i}'
+        favs = requests.get(URL, headers=headers)
+        favs = favs.json()
 
     URL = f'https://api.kinopoisk.dev/v1.3/movie/{id}'
     response = requests.get(URL, headers=headers)
@@ -178,6 +194,7 @@ def bio(request, id):
         'persons': persons,
         'sequelsAndPrequels': data['sequelsAndPrequels'],
         'other': other,
+        'favs': favs
     }
     # print(data['externalId']['tmdb'])
     return render(request, 'main/movie_base.html', context)

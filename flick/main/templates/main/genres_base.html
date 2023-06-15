@@ -5,7 +5,12 @@
     <meta charset="UTF-8">
     <link rel="stylesheet" href="{%  static '/css/style.css' %}" />
     <link href="https://fonts.googleapis.com/css2?family=Jost:wght@200;300;600&family=Raleway:wght@300;400;600&display=swap" rel="stylesheet">
-
+    <style>
+        .title{
+        font-size:calc(20px + 8 * (100vw - 320px) / 880);
+        margin: 10px 0;
+      } 
+    </style>
     <title>{{genre|capfirst}}</title>
 </head>
 <body>
@@ -22,14 +27,17 @@
                     <a href="/compilation" class="header__logo">каталог</a>
                 </div>
 
-                <form>
-                    <input type="text" class="header__search" placeholder="Поиск" />
-                </form>
-
                 <div class="header-end">
-                    <a href="/registration" class="header__logo">регистрация</a>
-                    <div class="divider"></div>
-                    <a href="/login" class="header__logo">вход</a>
+                    {% if not request.user.is_authenticated %}
+                        <a href="/registration" class="header__logo">регистрация</a>
+                        <div class="divider"></div>
+                        <a href="/login" class="header__logo">вход</a>
+                    {% endif %}
+                    {% if request.user.is_authenticated %}
+                        <a href="/profile" class="header__logo">домой</a>
+                        <div class="divider"></div>
+                        <a class="header__logo" href='/logout'>выйти</a>
+                    {% endif %}
                 </div>
             </div>
         </div>
@@ -38,7 +46,7 @@
       <br>
 {% csrf_token %}
 <div class="container">
-<h2 style="color: white; font-size:calc(20px + 8 * (100vw - 320px) / 880);">{{genre|capfirst}}</h2>
+<h2 class="title" style="color: white; font-size:calc(20px + 8 * (100vw - 320px) / 880);">{{genre|capfirst}}</h2>
 <p style="color: white; font-size:calc(10px + 8 * (100vw - 320px) / 880);">{{ description }}</p>
 <br>
 

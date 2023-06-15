@@ -9,8 +9,98 @@
         <link rel="stylesheet" href="../../static/css/style.css"/>
 
     <title>{{name}}</title>
+    <style>
+        #wrapper {
+    width: 80vw;
+    margin: 20px 70px;
+    position: relative;
+    }
+
+    #carousel {
+    overflow: auto;
+    margin: 0 80px;
+    scroll-behavior: smooth;
+    scrollbar-width: none;
+    }
+
+    #carousel::-webkit-scrollbar {
+    height: 0;
+    }
+
+    #prev,
+    #next {
+    display: flex;
+    justify-content: center;
+    align-content: center;
+    background: white;
+    border: none;
+    padding: 8px;
+    border-radius: 50%;
+    outline: 0;
+    cursor: pointer;
+    position: absolute;
+    }
+
+    #prev {
+    top: 50%;
+    left: 0;
+    transform: translate(50%, -50%);
+    display: none;
+    }
+
+    #next {
+    top: 50%;
+    right: 0;
+    transform: translate(-50%, -50%);
+    }
+
+    #content {
+    display: grid;
+    grid-gap: 16px;
+    grid-auto-flow: column;
+    margin: auto;
+    box-sizing: border-box;
+    }
+
+    .item {
+    width: 150px;
+    }
+    </style>
 
     <script>
+        window.addEventListener("DOMContentLoaded", function() {
+            const gap = 16;
+
+        const carousel = document.getElementById("carousel"),
+        content = document.getElementById("content"),
+        next = document.getElementById("next"),
+        prev = document.getElementById("prev");
+
+        console.log(next);
+        next.addEventListener("click", e => {
+        carousel.scrollBy(width + gap, 0);
+        if (carousel.scrollWidth !== 0) {
+            prev.style.display = "flex";
+        }
+        if (content.scrollWidth - width - gap <= carousel.scrollLeft + width) {
+            next.style.display = "none";
+        }
+        });
+        prev.addEventListener("click", e => {
+        carousel.scrollBy(-(width + gap), 0);
+        if (carousel.scrollLeft - width - gap <= 0) {
+            prev.style.display = "none";
+        }
+        if (!content.scrollWidth - width - gap <= carousel.scrollLeft + width) {
+            next.style.display = "flex";
+        }
+        });
+
+        let width = carousel.offsetWidth;
+        window.addEventListener("resize", e => (width = carousel.offsetWidth));
+
+    }, false);
+
         $(document).ready(function(){
             $(window).scrollTop(0);
         });
@@ -35,27 +125,30 @@
     <header class="container" style="margin:0;">
 
         <div class="header__content">
-          <div style="position: absolute; left: 0; top: 0; width:100%;">
-            <div style="display:flex; width: 100vw; justify-content:space-between; padding: 10px 40px; align-items: center;">
-                <div class="header-middle">
-                    <a href="/" style="font-weight:700; font-size:calc(30px + 8 * (100vw - 320px) / 880);
-                    color: white; text-decoration: none;">Flick</a>
-                    <div class="divider"></div>
-                    <a href="/compilation" class="header__logo">каталог</a>
-                </div>
-
-                <form>
-                    <input type="text" class="header__search" placeholder="Поиск" />
-                </form>
-
-                <div class="header-end">
-                    <a href="/registration" class="header__logo">регистрация</a>
-                    <div class="divider"></div>
-                    <a href="/login" class="header__logo">вход</a>
-                </div>
-            </div>
-        </div>
-        </div>
+            <div style="position: absolute; left: 0; top: 0; width:100%;">
+              <div style="display:flex; width: 100vw; justify-content:space-between; padding: 10px 40px; align-items: center;">
+                  <div class="header-middle">
+                      <a href="/" style="font-weight:700; font-size:calc(30px + 8 * (100vw - 320px) / 880);
+                      color: white; text-decoration: none;">Flick</a>
+                      <div class="divider"></div>
+                      <a href="/compilation" class="header__logo">каталог</a>
+                  </div>
+    
+                  <div class="header-end">
+                      {% if not request.user.is_authenticated %}
+                          <a href="/registration" class="header__logo">регистрация</a>
+                          <div class="divider"></div>
+                          <a href="/login" class="header__logo">вход</a>
+                      {% endif %}
+                      {% if request.user.is_authenticated %}
+                          <a href="/profile" class="header__logo">домой</a>
+                          <div class="divider"></div>
+                          <a class="header__logo" href='/logout'>выйти</a>
+                      {% endif %}
+                  </div>
+              </div>
+          </div>
+          </div>
       </header>
 
 <div style="display: flex; flex-direction: column; justify-content:space-between; width: 80vw; margin: auto;">
@@ -69,8 +162,11 @@
 
                 <button id="link" onclick="google()" class="watch-btn">Смотреть сейчас</button>
                 {% csrf_token %}
-                {% include 'favorits/includes/add_to_favorits.html' with id=id %}
-                {% include 'favorits/includes/remove_from_favorits.html' with id=id %}
+
+                {% if request.user.is_authenticated %}
+                    {% include 'favorits/includes/add_to_favorits.html' with id=id %}
+                    {% include 'favorits/includes/remove_from_favorits.html' with id=id %}
+                {% endif %}
 
                 <button type="button" style="margin:20px auto" class="down-btn" onClick="checkIfTrailer()">
                 <svg style="margin: auto;" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" width="30" height="30" viewBox="0 0 256 256" xml:space="preserve">
@@ -94,7 +190,7 @@
                     height="440px">
                 frame body
             </iframe>
-            <button type="button" style="margin:auto" class="down-btn" onClick="document.getElementById("bottom').scrollIntoView();">
+            <button type="button" style="margin:auto" class="down-btn" onClick="document.getElementById('bottom').scrollIntoView();">
                 <svg style="margin: auto;" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" width="30" height="30" viewBox="0 0 256 256" xml:space="preserve">
                     <defs>
                     </defs>
@@ -201,20 +297,48 @@
                     {% endfor %}
                     {% endif %}
 
-            {% if other|length > 0 %}
-                <p style="width: 100%; text-align: left; font-weight: 700; font-size:calc(15px + 8 * (100vw - 320px) / 880);">Похожие флики</p>
-                <div style="width:100%; display: flex; gap: 30px; margin: 20px; flex-wrap: wrap; align-items: flex-start;">
-                    {% for m in other.docs %}
-                    <a style="text-decoration: none; size: 15px; color: black" href="{{ m.id }}">
+            
+                    {% if other|length > 0 %}
+                    <p style="width: 100%; text-align: left; font-weight: 700; font-size:calc(15px + 8 * (100vw - 320px) / 880); margin-left: 20px;">Похожие флики</p>
+                    <div id="wrapper">
+                        <div id="carousel">
+                          <div id="content">
+                            {% for m in other.docs %}
+                    <a class="item" style="text-decoration: none; size: 15px; color: black" href="{{ m.id }}">
                         <div style="width:150px">
                             <img width="150px" height="225px" src="{{ m.poster.previewUrl }}">
                             <div style="color:white;">{{ m.name }}</div>
                         </div>
                     </a>
-
+    
                     {% endfor %}
+                          </div>
+                        </div>
+                        <button id="prev">
+                          <svg
+                            xmlns="http://www.w3.org/2000/svg"
+                            width="24"
+                            height="24"
+                            viewBox="0 0 24 24"
+                          >
+                            <path fill="none" d="M0 0h24v24H0V0z" />
+                            <path d="M15.61 7.41L14.2 6l-6 6 6 6 1.41-1.41L11.03 12l4.58-4.59z" />
+                          </svg>
+                        </button>
+                        <button id="next">
+                          <svg
+                            xmlns="http://www.w3.org/2000/svg"
+                            width="24"
+                            height="24"
+                            viewBox="0 0 24 24"
+                          >
+                            <path fill="none" d="M0 0h24v24H0V0z" />
+                            <path d="M10.02 6L8.61 7.41 13.19 12l-4.58 4.59L10.02 18l6-6-6-6z" />
+                          </svg>
+                        </button>
+                      </div>
+                    </div>
                     {% endif %}
-                </div>
 
             </div>
     </div>

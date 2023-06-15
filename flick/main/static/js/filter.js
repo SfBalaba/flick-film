@@ -59,7 +59,6 @@ async function getMovies(url) {
     },
   });
   const respData = await resp.json();
-  alert(respData);
   showMovies(respData);
 }
 
@@ -82,7 +81,6 @@ button.addEventListener("click", function (evnt) {
       $.each($(".country option:selected"), function(){
       url += `&countries.name=${$(this).val()}`
       });
-      alert(url);
       getMovies(url);
 });
 

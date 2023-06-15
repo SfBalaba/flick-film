@@ -2,7 +2,7 @@
 <form action='{% url "remove" id=id %}' method="post">
                    {% csrf_token %}
                         <input type="hidden" name="url_from" value="{{ request.path }}">
-                        <button style="margin-left: 10px" class="watch-btn" type="submit">удалить из избранного</button>
+                        <button style="margin-left: 10px" class="watch-btn" type="submit">Удалить из избранного</button>
                     </form>{#{% if request.session.favorites %}#}
 {#<p>hello</p>#}
 {#    {% if type(id) is mapper %}#}
